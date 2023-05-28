@@ -1,28 +1,28 @@
-import { Menu } from 'antd';
-import { Header } from 'antd/es/layout/layout';
-import React, { FC } from 'react'
-import PokemonLogo from '../../assets/pokemon_logo.png'
+import { Menu } from "antd";
+import { Header } from "antd/es/layout/layout";
+import React, { FC } from "react";
+import PokemonLogo from "../../assets/pokemon_logo.png";
 
 const Navbar: FC = () => {
   return (
-    <Header 
+    <Header
       style={{
-        backgroundColor: 'white',
-        position: 'sticky',
+        backgroundColor: "white",
+        position: "sticky",
         top: 0,
         zIndex: 999,
-        width: '100%',
+        width: "100%",
         padding: 0,
-        display: 'flex',
-        alignItems: 'center',
+        display: "flex",
+        alignItems: "center",
       }}
     >
-      <img 
+      <img
         alt="Pokemon app logo"
-        src={PokemonLogo} 
-        height={'70%'}
+        src={PokemonLogo}
+        height={"70%"}
         style={{
-          padding: '0 1rem'
+          padding: "0 1rem",
         }}
       />
       {/* <Menu
@@ -38,7 +38,7 @@ const Navbar: FC = () => {
         })}
       /> */}
     </Header>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

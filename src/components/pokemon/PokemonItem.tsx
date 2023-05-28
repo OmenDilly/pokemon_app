@@ -12,8 +12,7 @@ interface PokemonItemProps {
   pokemon: Pokemon;
 }
 
-const PokemonItem: FC<PokemonItemProps> = ({pokemon}) => {
-
+const PokemonItem: FC<PokemonItemProps> = ({ pokemon }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -25,22 +24,17 @@ const PokemonItem: FC<PokemonItemProps> = ({pokemon}) => {
       />
       <Card
         hoverable
-        style={{ flex: 1, overflow: 'hidden' }}
-        cover={<img src={pokemon.frontImage}/> }
+        style={{ flex: 1, overflow: "hidden" }}
+        cover={<img src={pokemon.frontImage} />}
         onClick={() => setIsModalOpen(true)}
       >
-        <Space
-          direction="vertical"
-        >
-          <Meta title={pokemon.name}/>
-          <PokemonTypeView
-            pokemon={pokemon}
-          />
+        <Space direction="vertical">
+          <Meta title={pokemon.name} />
+          <PokemonTypeView pokemon={pokemon} />
         </Space>
       </Card>
     </>
-
-  )
+  );
 };
 
 export default PokemonItem;

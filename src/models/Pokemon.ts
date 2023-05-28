@@ -1,53 +1,53 @@
-
 export const PokemonTypeColors = {
-  POISON: 'magenta',
-  FIGHTING: 'red',
-  FLYING: 'blue',
-  GROUND: 'volcano',
-  ROCK: 'default',
-  BUG: 'lime',
-  GHOST: 'geekblue',
-  STEEL: 'magenta',
-  FIRE: 'volcano',
-  WATER: 'blue',
-  GRASS: 'green',
-  ELECTRIC: 'gold',
-  PSYCHIC: 'orange',
-  ICE: 'cyan',
-  DRAGON: 'volcano',
-  DARK: 'purple',
-  FAIRY: 'green',
-  UNKNOWN: 'default',
-  SHADOW: 'geekblue'
-} as const
+  POISON: "magenta",
+  FIGHTING: "red",
+  FLYING: "blue",
+  GROUND: "volcano",
+  ROCK: "default",
+  BUG: "lime",
+  GHOST: "geekblue",
+  STEEL: "magenta",
+  FIRE: "volcano",
+  WATER: "blue",
+  GRASS: "green",
+  ELECTRIC: "gold",
+  PSYCHIC: "orange",
+  ICE: "cyan",
+  DRAGON: "volcano",
+  DARK: "purple",
+  FAIRY: "green",
+  UNKNOWN: "default",
+  SHADOW: "geekblue",
+} as const;
 
 export const PokemonTypes = [
-  'poison',
-  'fighting',
-  'flying',
-  'ground',
-  'rock',
-  'bug',
-  'ghost',
-  'steel',
-  'fire',
-  'water',
-  'grass',
-  'electric',
-  'psychic',
-  'ice',
-  'dragon',
-  'dark',
-  'fairy',
-  'unknown',
-  'shadow'
-] as const
+  "poison",
+  "fighting",
+  "flying",
+  "ground",
+  "rock",
+  "bug",
+  "ghost",
+  "steel",
+  "fire",
+  "water",
+  "grass",
+  "electric",
+  "psychic",
+  "ice",
+  "dragon",
+  "dark",
+  "fairy",
+  "unknown",
+  "shadow",
+] as const;
 
-export type PokemonTypeColor = typeof PokemonTypeColors[keyof typeof PokemonTypeColors]
+export type PokemonTypeColor =
+  (typeof PokemonTypeColors)[keyof typeof PokemonTypeColors];
 
-export type StatProps = {name: string, value: number}
-export type InfoProps = {name: string, value: number}
-export type PokemonTypeProps = {name: string, color: string}
+export type StatProps = { name: string; value: number };
+export type InfoProps = { name: string; value: number };
+export type PokemonTypeProps = { name: string; color: string };
 
 export class Pokemon {
   id: number;
@@ -57,9 +57,9 @@ export class Pokemon {
   stats: StatProps[];
   info: InfoProps[];
   types: PokemonTypeProps[];
-  
+
   constructor(
-    id: number, 
+    id: number,
     name: string,
     frontImage: string,
     backImage: string,
@@ -72,7 +72,7 @@ export class Pokemon {
     this.frontImage = frontImage;
     this.backImage = backImage;
     this.stats = stats;
-    this.info = info
+    this.info = info;
     this.types = types;
   }
 }

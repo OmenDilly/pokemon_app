@@ -1,12 +1,12 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import { Pokemon } from "../../models/Pokemon";
 import PokemonItem from "./PokemonItem";
 import React from "react";
-import PokemonService from "../../API/PokemonService";
-import {pokemonSlice} from '../../store/reducers/PokemonSlice'
+import PokemonService from "../../services/PokemonService";
+import { pokemonSlice } from "../../store/reducers/PokemonSlice";
 import { List, Pagination, PaginationProps } from "antd";
-import {useAppDispatch, useAppSelector} from '../../store/hooks/redux'
-import classes from './pokemon.module.css'
+import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
+import classes from "./pokemon.module.css";
 import { RootState } from "../../store/store";
 import { setPage, setSize } from "../../store/reducers/ActionCreators";
 
@@ -18,44 +18,65 @@ interface PokemonListProps {
 const PaginationLimits = {
   SMALL: 10,
   MEDIUM: 20,
-  LARGE: 50
-} as const
+  LARGE: 50,
+} as const;
 
-type ItemLimit = typeof PaginationLimits[keyof typeof PaginationLimits]
-export type Paging = {page: number, limit: number}
+type ItemLimit = (typeof PaginationLimits)[keyof typeof PaginationLimits];
+export type Paging = { page: number; limit: number };
 
 const PokemonList: FC<PokemonListProps> = ({ pokemons, getPokemons }) => {
+  const currentPage = useAppSelector(
+    (state: RootState) => state.PokemonReducer.currentPage
+  );
+  const pageSize = useAppSelector(
+    (state: RootState) => state.PokemonReducer.pageSize
+  );
+  const totalPokemons = pokemons.length;
 
-  // const currentPage = useAppSelector((state: RootState) => state.PokemonReducer.currentPage);
-  // const pageSize = useAppSelector((state: RootState) => state.PokemonReducer.pageSize);
-  // const totalPokemons = pokemons.length
-  // const startIndex = (currentPage - 1) * pageSize;
-  // const endIndex = Math.min(startIndex + pageSize, totalPokemons);
-  // const displayedPokemons = pokemons.slice(startIndex, endIndex)
+  const pagingValues = useMemo(() => {
+    const startIndex = (currentPage - 1) * pageSize;
+    const endIndex = Math.min(startIndex + pageSize, totalPokemons);
 
-  const isLoading = useAppSelector(state => state.PokemonReducer.isLoading)
+    return {
+      startIndex,
+      endIndex,
+    };
+  }, [pokemons, currentPage, pageSize]);
 
-  const dispatch = useAppDispatch()
+  const displayedPokemons = pokemons.slice(
+    pagingValues.startIndex,
+    pagingValues.endIndex
+  );
 
-  const [paging, setPaging] = useState<Paging>({page: 0, limit: PaginationLimits.SMALL})
+  const isLoading = useAppSelector((state) => state.PokemonReducer.isLoading);
 
-  useEffect(() => {
-    getPokemons(paging)
-  }, [paging]);
+  const dispatch = useAppDispatch();
 
-  const onShowSizeChange: PaginationProps['onShowSizeChange'] = (current, pageSize) => {
-    const limit: number = pageSize
-    // dispatch(setSize(limit))
-    setPaging(prevPaging => ({...prevPaging, limit}));
+  const [paging, setPaging] = useState<Paging>({
+    page: 0,
+    limit: PaginationLimits.SMALL,
+  });
+
+  // useEffect(() => {
+  //   getPokemons(paging)
+  // }, [paging]);
+
+  const onShowSizeChange: PaginationProps["onShowSizeChange"] = (
+    current,
+    pageSize
+  ) => {
+    const limit: number = pageSize;
+    dispatch(setSize(limit));
+    // setPaging(prevPaging => ({...prevPaging, limit}));
   };
 
-  const onChange: PaginationProps['onChange'] =  (page) => {
-    // dispatch(setPage(page))
-    setPaging(prevPaging => ({...prevPaging, page: page - 1}));
+  const onChange: PaginationProps["onChange"] = (page) => {
+    dispatch(setPage(page));
+    // setPaging(prevPaging => ({...prevPaging, page: page - 1}));
   };
 
   return (
-    <List    
+    <List
       grid={{
         gutter: 16,
         xs: 1,
@@ -63,23 +84,23 @@ const PokemonList: FC<PokemonListProps> = ({ pokemons, getPokemons }) => {
         md: 3,
         lg: 4,
         xl: 5,
-        xxl: 6
+        xxl: 6,
       }}
       loading={isLoading}
       pagination={{
-        align: 'end',
+        align: "end",
         showSizeChanger: true,
         onChange: onChange,
         pageSizeOptions: [
           PaginationLimits.SMALL,
           PaginationLimits.MEDIUM,
-          PaginationLimits.LARGE
+          PaginationLimits.LARGE,
         ],
         onShowSizeChange: onShowSizeChange,
         defaultCurrent: 1,
-        total: 100
+        total: totalPokemons,
       }}
-      dataSource={pokemons}
+      dataSource={displayedPokemons}
       renderItem={(pokemon) => (
         <List.Item>
           <PokemonItem pokemon={pokemon} />

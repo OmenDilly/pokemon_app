@@ -1,20 +1,20 @@
-import React, { FC } from 'react';
-import { Select, Space, Tag } from 'antd';
-import type { SelectProps } from 'antd';
-import type { CustomTagProps } from 'rc-select/lib/BaseSelect';
-import BeforeInput from './BeforeInput';
-import { PokemonTypes } from '../../models/Pokemon';
-import { usePokemonTypeColor } from '../../hooks/useStyle';
-import { PokemonFilterProps } from '../pokemon/PokemonFilter';
+import React, { FC } from "react";
+import { Select, Space, Tag } from "antd";
+import type { SelectProps } from "antd";
+import type { CustomTagProps } from "rc-select/lib/BaseSelect";
+import BeforeInput from "./BeforeInput";
+import { PokemonTypes } from "../../models/Pokemon";
+import { usePokemonTypeColor } from "../../hooks/useStyle";
+import { PokemonFilterProps } from "../pokemon/PokemonFilter";
 
-const options: SelectProps['options'] = [];
+const options: SelectProps["options"] = [];
 
-PokemonTypes.map(type => 
+PokemonTypes.map((type) =>
   options.push({
     label: type,
-    value: type
+    value: type,
   })
-)
+);
 
 const tagRender = (props: CustomTagProps) => {
   const { label, value, closable, onClose } = props;
@@ -23,7 +23,7 @@ const tagRender = (props: CustomTagProps) => {
     event.stopPropagation();
   };
 
-  const tagColor = usePokemonTypeColor(value)
+  const tagColor = usePokemonTypeColor(value);
   return (
     <Tag
       color={tagColor}
@@ -37,29 +37,26 @@ const tagRender = (props: CustomTagProps) => {
   );
 };
 
-const MultipleSelect: FC<PokemonFilterProps> = ({filter, setFilter}) => {
-
+const MultipleSelect: FC<PokemonFilterProps> = ({ filter, setFilter }) => {
   const handleChange = (value: string[]) => {
-    setFilter(prevFilter => ({...prevFilter, filter: value}))
+    setFilter((prevFilter) => ({ ...prevFilter, filter: value }));
   };
-  
+
   return (
-    <BeforeInput
-      name='Type'
-    >
+    <BeforeInput name="Type">
       <Select
         mode="multiple"
-        size='large'
+        size="large"
         allowClear
         tagRender={tagRender}
-        style={{ width: '100%' }}
+        style={{ width: "100%" }}
         placeholder="select type"
         value={filter.filter}
         onChange={handleChange}
         options={options}
       />
     </BeforeInput>
-  )
-}
+  );
+};
 
 export default MultipleSelect;

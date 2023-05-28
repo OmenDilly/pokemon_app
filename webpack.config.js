@@ -2,28 +2,27 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = ({ mode } = { mode: "production" }) => {
-
-    return {
-      mode,
-      entry: "./src/index.tsx",
-      output: {
-        publicPath: "/",
-        path: path.resolve(__dirname, "build"),
-        filename: "bundle.js",
-        clean: true
-      },
-      resolve: {
-        extensions: ['.ts', '.tsx', '.js']
-      },
-      externals: {
-        'react': 'React'
-      },
-      module: {
-        rules: [
+  return {
+    mode,
+    entry: "./src/index.tsx",
+    output: {
+      publicPath: "/",
+      path: path.resolve(__dirname, "build"),
+      filename: "bundle.js",
+      clean: true,
+    },
+    resolve: {
+      extensions: [".ts", ".tsx", ".js"],
+    },
+    externals: {
+      react: "React",
+    },
+    module: {
+      rules: [
         {
           test: /\.jpe?g|png$/,
           exclude: /node_modules/,
-          use: ["url-loader", "file-loader"]
+          use: ["url-loader", "file-loader"],
         },
         {
           test: /\.(ts|tsx|js|jsx)$/,
@@ -37,14 +36,14 @@ module.exports = ({ mode } = { mode: "production" }) => {
         },
         {
           test: /\.css/,
-          use: ['style-loader', 'css-loader'],
-        }
-        ]
-      },
-      plugins: [
-        new HtmlWebpackPlugin({
-            template: "./public/index.html"
-        }),
-      ]
-  }
+          use: ["style-loader", "css-loader"],
+        },
+      ],
+    },
+    plugins: [
+      new HtmlWebpackPlugin({
+        template: "./public/index.html",
+      }),
+    ],
+  };
 };

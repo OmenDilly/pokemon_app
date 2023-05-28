@@ -1,7 +1,7 @@
 {
   "presets": [
     [
-      "@babel/preset-react", 
+      "@babel/preset-react",
       {
         "runtime": "automatic"
       }
@@ -23,14 +23,10 @@
       }
     ]
   ],
-  "plugins": [
-    "transform-class-properties"
-  ],
+  "plugins": ["transform-class-properties"],
   "env": {
     "test": {
-      "plugins": [
-        "transform-es2015-modules-commonjs"
-      ]
+      "plugins": ["transform-es2015-modules-commonjs"]
     }
   }
 }

@@ -1,11 +1,11 @@
-import React from 'react'
+import React from "react";
 
 export const useCapitalizeFirstLetter = (word: string) => {
-  const firstLetter = word.charAt(0).toUpperCase()
+  const firstLetter = word.charAt(0).toUpperCase();
 
-  const remainingLetters = word.slice(1)
+  const remainingLetters = word.slice(1);
 
-  const capitalizedWord = firstLetter + remainingLetters
+  const capitalizedWord = firstLetter + remainingLetters;
 
-  return capitalizedWord
-}
+  return capitalizedWord;
+};
