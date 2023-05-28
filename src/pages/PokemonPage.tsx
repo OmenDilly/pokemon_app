@@ -3,12 +3,12 @@ import React from "react";
 import PokemonList, { Paging } from "../components/pokemon/PokemonList";
 import { useAppDispatch, useAppSelector } from "../store/hooks/redux";
 import { Pokemon } from "../models/Pokemon";
-import { fetchPokemons } from "../store/reducers/ActionCreators";
 import PokemonFilter from "../components/pokemon/PokemonFilter";
 import { usePokemons } from "../hooks/usePokemons";
 import classes from "./pokemonPage.module.css";
 import { RootState } from "../store/store";
 import InfoMessage, { InfoMessageTypes } from "../components/ui/InfoMessage";
+import { fetchPokemons } from "../store/reducers/PokemonSlice";
 
 export type Filter = { sort: string; search: string; filter: string[] };
 

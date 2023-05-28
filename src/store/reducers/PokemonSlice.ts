@@ -1,6 +1,7 @@
+import { Paging } from "../../components/pokemon/PokemonList";
 import { Pokemon } from "../../models/Pokemon";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { fetchPokemons } from "./ActionCreators";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import PokemonService from "../../services/PokemonService";
 
 interface PokemonState {
   pokemons: Pokemon[];
@@ -18,6 +19,18 @@ const initialState: PokemonState = {
   pageSize: 10,
 };
 
+export const fetchPokemons = createAsyncThunk(
+  "pokemon/fetchPokemons",
+  async (paging: Paging, thunkAPI) => {
+    try {
+      const pokemons = await PokemonService.getAll(paging);
+      return pokemons;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
 export const pokemonSlice = createSlice({
   name: "pokemon",
   initialState,
@@ -30,7 +43,10 @@ export const pokemonSlice = createSlice({
     },
   },
   extraReducers: {
-    [fetchPokemons.fulfilled.type]: (state, action: PayloadAction<Pokemon[]>) => {
+    [fetchPokemons.fulfilled.type]: (
+      state,
+      action: PayloadAction<Pokemon[]>
+    ) => {
       state.isLoading = false;
       state.error = "";
       state.pokemons = action.payload;
@@ -42,7 +58,7 @@ export const pokemonSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
-  }
+  },
 });
 
 export default pokemonSlice.reducer;

@@ -1,10 +1,9 @@
-import { Menu, Layout, Image, App as AppContext } from "antd";
+import { Layout, App as AppContext } from "antd";
 import PokemonPage from "./pages/PokemonPage";
-import React from "react";
 import Navbar from "./components/ui/Navbar";
 
 function App() {
-  const { Header, Content, Footer } = Layout;
+  const { Content, Footer } = Layout;
 
   return (
     <AppContext>
